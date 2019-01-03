@@ -1,9 +1,8 @@
 import AdmZip from 'adm-zip';
-import { resolve } from 'path';
 import fs from 'fs';
 import transpileAndGetDependencies from './transpileAndGetDependencies';
 
-const packager = async (entryFilePath, dist) => {
+const packager = async (entryFilePath, zipFilePath) => {
   const { data, dependencies } = await transpileAndGetDependencies(
     entryFilePath,
   );
@@ -32,7 +31,6 @@ const packager = async (entryFilePath, dist) => {
     },
   );
   zipFile.addFile('package.json', JSON.stringify(packagedPackageJson, null, 2));
-  const zipFilePath = resolve(dist, 'service.zip');
   zipFile.writeZip(zipFilePath);
   return { data, dependencies };
 };

@@ -3,7 +3,7 @@ import packager from '..';
 import { resolve } from 'path';
 
 test('Packager', async () => {
-  const entryFilePath = resolve(__dirname, 'service.js');
-  const dist = resolve(__dirname, 'dist');
-  await packager(entryFilePath, dist);
+  const entryFilePath = resolve(__dirname, 'src/service.js');
+  const zipFilePath = resolve(__dirname, 'dist/service.zip');
+  await packager(entryFilePath, zipFilePath);
 });

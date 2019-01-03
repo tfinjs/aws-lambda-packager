@@ -1,6 +1,6 @@
 import MemoryFs from 'memory-fs';
 import webpack from 'webpack';
-import makeWebpackConfig from './webpack.config';
+import makeWebpackConfig from './makeWebpackConfig';
 
 class Compiler {
   constructor(id, { entry, withNodeExternals }) {

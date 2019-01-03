@@ -1,8 +1,5 @@
 import get from 'lodash/get';
-import AdmZip from 'adm-zip';
-import assert from 'assert';
-import findUp from 'find-up';
-import { resolve, dirname } from 'path';
+import { resolve } from 'path';
 import fs from 'fs';
 import * as lockfile from '@yarnpkg/lockfile';
 import eol from 'eol';

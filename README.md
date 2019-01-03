@@ -1,47 +1,28 @@
-## AWS lambda resource for tfinjs
+Packager for @tfinjs/aws-lambda
+===============================
+
+Use this packager to transpile your modules with webpack, find all the used dependencies and package it all into a zip file.
 
 
-### Usage
+```typescript
+async packager(entryFilePath: string, dist: string)
+```
 
-
-**Definition**
-
+### Usage:
 ```javascript
+import packager from '@tfinjs/aws-lambda-packager';
+import path from 'path';
 
-import { resource as awsLambda } from '@tfinjs/aws-lambda';
-import lambdaDeploymentBucket from './lambdaDeploymentBucket';
-import api from './api';
-
-const petLambdas = awsLambda(api, 'petLambdas', {
-  cloudwatch: true,
-  apigw: {
-    enabled: true,
-    cors: true,
-    path: '*/*',
-  },
-  s3DeploymentBucket: api.reference(lambdaDeploymentBucket, 'id'),
-  entry: {
-    path: join(__dirname, './service.js'),
-    export: 'handler'
-  }
-  /* byotranspiler */
-  /* given the input file path, transpile the input into some output file content which path should be returned */
-  /* if you dont want to transpile the file, just return the fs.readFileSync(inputFilePath, 'binary'); buffer */
-  /* If you use some env files you can transpile using webpack and the env provider plugin such that you can use the api during runtime */
-  build: async (inputFilePath) => {
-    return fs.readFileSync(inputFilePath, 'binary');
-  }
-});
-
-export default lambda;
+const entryFilePath = path.resolve(__dirname, 'service.js');
+const zipFilePath = path.resolve(__dirname, 'dist/service.zip')
+packager(entryFilePath, zipFilePath)
+  .then(() => {
+    console.log('Done');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 ```
-**Reference the arn in lambdas**
-```javascript
-/* service.js */
-import { getArn } from '@tfinjs/aws-lambda';
-import api from './target-lambda/api';
 
-const arn = getArn(api, 'petLambda', 'queue');
-```
 

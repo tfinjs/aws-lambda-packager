@@ -1,6 +1,6 @@
 import nodeExternals from 'webpack-node-externals';
 
-module.exports = ({ entry, withNodeExternals }) => {
+const makeWebpackConfig = ({ entry, withNodeExternals }) => {
   const externals = withNodeExternals ? [nodeExternals()] : [];
   return {
     optimization: {
@@ -24,3 +24,5 @@ module.exports = ({ entry, withNodeExternals }) => {
     },
   };
 };
+
+export default makeWebpackConfig;

@@ -3,9 +3,7 @@ const { resolve } = require('path');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
-  entry: [
-    resolve(__dirname, 'src/cli/index.js'),
-  ],
+  entry: [resolve(__dirname, 'src/cli/index.js')],
   devtool: 'inline-source-map',
   output: {
     path: resolve(__dirname, 'dist'),

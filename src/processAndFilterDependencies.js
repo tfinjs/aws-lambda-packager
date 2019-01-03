@@ -1,13 +1,14 @@
 import assert from 'assert';
 import findUp from 'find-up';
 import { resolve, dirname } from 'path';
+import requireResolve from 'resolve';
 import getProductionDependencies from './getProductionDependencies';
 
 const processAndFilterDependencies = ({ entryFilePath, dependencyNames }) => {
   const prodDependencies = {};
   const resolved = dependencyNames.reduce((c, dependencyName) => {
-    const requiredFilePath = require.resolve(dependencyName, {
-      paths: [entryFilePath],
+    const requiredFilePath = requireResolve.sync(dependencyName, {
+      basedir: dirname(entryFilePath),
     });
     const dependencyFolderPath = dirname(
       findUp.sync('package.json', {
