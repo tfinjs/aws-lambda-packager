@@ -1,8 +1,21 @@
+import assert from 'assert';
 import AdmZip from 'adm-zip';
 import fs from 'fs';
+import { isAbsolute } from 'path';
 import transpileAndGetDependencies from './transpileAndGetDependencies';
 
 const packager = async (entryFilePath, zipFilePath) => {
+  assert(
+    typeof entryFilePath === 'string'
+      && isAbsolute(entryFilePath)
+      && fs.existsSync(entryFilePath),
+    'entryFilePath must be a string, must be an absolute path and must point to an existing file',
+  );
+  assert(
+    typeof zipFilePath === 'string' && isAbsolute(zipFilePath),
+    'zipFilePath must be a string and must be an absolute path',
+  );
+
   const { data, dependencies } = await transpileAndGetDependencies(
     entryFilePath,
   );

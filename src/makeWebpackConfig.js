@@ -20,7 +20,9 @@ const makeWebpackConfig = ({ entry, withNodeExternals }) => {
       /* memory fs path */
       path: '/',
       filename: 'service.js',
-      libraryTarget: 'commonjs2',
+      library: 'handler',
+      libraryTarget: 'commonjs',
+      libraryExport: 'default',
     },
   };
 };
